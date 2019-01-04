@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" version="2.0">
+    <!--持久化单元配置(可以配置多个单元，这是配置不同的数据库)
+    像Oracle数据库oracle.jdbc.driver.OracleDriver驱动的连接，需要再配置一个Oracle的单元。
+        name:持久化单元配置起一个名称,读取配置文件时指定
+        transaction-type:事务管理模式。
+                RESOURCE_LOCAL：传统本地事务，
+                JTA：分布式事务
+    -->
+    <persistence-unit name="abc" transaction-type="RESOURCE_LOCAL">
+        <!--指定实现JPA的提供商(默认值就是hibernate)-->
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <properties>
+            <!--连接数据库配置-->
+            <property name="javax.persistence.jdbc.user" value="root"/>
+            <property name="javax.persistence.jdbc.password" value="root"/>
+            <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/spring-data"/>
+
+            <!--hibernate厂商配置(不同的框架配置不同) -->
+            <!--是否打印sql语句-->
+            <property name="hibernate.show_sql" value="true"/>
+            <!--是否格式化打印的sql语句-->
+            <property name="hibernate.format_sql" value="true"/>
+            <!-- 自动建表策略
+                可选值：create-drop,create、update、validate,none
+                create：程序自动创建数据库表，如果表存在则先删除后创建.会确保每次hibernate启动都会重新创建表结构.用于测试使用
+                create-drop:每次启动都会重新建表,释放资源后会将表删除.用于测试使用
+                update：程序自动创建数据库表，如果表存在则不创建。表结构不一致会自动修改表结构.用于测试使用
+                validate:每次hibernate启动时校验表结构.既不会建表也不会修改表结构
+                none:不会创建表也不会修改表结构,更不检验表
+            -->
+            <property name="hibernate.hbm2ddl.auto" value="create"/>
+
+        </properties>
+    </persistence-unit>
+
+</persistence>
